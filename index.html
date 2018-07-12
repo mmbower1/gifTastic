@@ -9,10 +9,70 @@
     <!--CSS link -->
     <link rel="stylesheet" type="text/css" href="style.css">
     <!--jQuery-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style type="text/css">
+        button,
+        div,
+        form,
+        input {
+          margin: 10px;
+        }
+    </style>
     
 </head>
 <body>
+    <form id="giphy-form">
+        <label for="giphy-input">Add a Giphy</label>
+        <input type="text" id="gif-input"><br>
+    </form>
+    <div>
+        <img src="">
+    </div>
+    <span>
+        <a href=""></a>
+    </span>
 
+    <button class='movie' id='Pirates'>Pirates of the Caribbean</button>
+    <button class='movie' id='Star Wars'>Star Wars</button>
+    <button class='movie' id='LOTR'>Lord of the Rings</button>
+    <button class='movie' id='HP'>Harry Potter</button>
+    <button class='movie' id='Batman'>The Dark Knight</button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+    </script>
+
+    <script type="text/javascript">
+        var topics = ['Pirates of the Caribbean', 'Star Wars', 'Lord of the Rings', 'Harry Potter', 'The Dark Knight',];
+        var apiKey = "0XJlkfJ3Jcp9C553a2fo3ObaonZDDgHS";
+
+        //once the page refreshes, a button is clicked, 
+        //when a button is clicked, the text is grabbed 
+        //grab 10 giphys according to the button that is pushed
+
+        $('.movie').on('click', function() {
+            console.log($(this).text());
+            var text = $(this).text();        
+            var queryURL = "https://api.giphy.com/v1/gifs/search?api_key="+apiKey+"&q="+text+"&limit=25&offset=0&rating=G&lang=en";
+
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            }).then(function(response) {
+                console.log(response.data[0].images.original.url);
+
+                var gifURL = $("<a>").attr("href", response.url).append(artistName);
+                var gifImage = $("<img>").attr("src", response.thumb_url);
+                
+                //create for loop for looping through array 
+                //dynamically create img elements with giphs as source, then append to body
+                //loop ends
+
+            });
+        });
+        
+
+        
+    </script>
+    
+    
 </body>
 </html>
