@@ -13,29 +13,36 @@
         button,
         div,
         form,
-        input {
+        input
+        {
+          background: #FAEBD7;
+          border-radius: 25px;
+          font-family: Impact;
           margin: 10px;
+          text-align: center;
         }
     </style>
     
 </head>
 <body>
-    <form id="giphy-form">
-        <label for="giphy-input">Add a Giphy</label>
-        <input type="text" id="gif-input"><br>
-    </form>
-    <div>
-        <img src="">
+    <div class='container'>
+        <form id="giphy-form">
+            <label for="giphy-input">Add a Giphy</label>
+            <input type="text" id="gif-input"><br>
+        </form>
+
+        <button class='btn btn-outline-primary movie' id='Pirates'>Pirates of the Caribbean</button>
+        <button class='btn btn-outline-danger movie' id='Star Wars'>Star Wars</button>
+        <button class='btn btn-outline-dark movie' id='LOTR'>Lord of the Rings</button>
+        <button class='btn btn-outline-warning movie' id='HP'>Harry Potter</button>
+        <button class='btn btn-outline-info movie' id='Batman'>The Dark Knight</button>
     </div>
     <span>
-        <a href=""></a>
+        <img src=' '>
     </span>
-
-    <button class='movie' id='Pirates'>Pirates of the Caribbean</button>
-    <button class='movie' id='Star Wars'>Star Wars</button>
-    <button class='movie' id='LOTR'>Lord of the Rings</button>
-    <button class='movie' id='HP'>Harry Potter</button>
-    <button class='movie' id='Batman'>The Dark Knight</button>
+    <span>
+        <a href></a>
+    </span>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     </script>
@@ -49,6 +56,7 @@
         //grab 10 giphys according to the button that is pushed
 
         $('.movie').on('click', function() {
+            event.preventDefault();
             console.log($(this).text());
             var text = $(this).text();        
             var queryURL = "https://api.giphy.com/v1/gifs/search?api_key="+apiKey+"&q="+text+"&limit=25&offset=0&rating=G&lang=en";
@@ -59,10 +67,13 @@
             }).then(function(response) {
                 console.log(response.data[0].images.original.url);
 
-                var gifURL = $("<a>").attr("href", response.url).append(artistName);
+                var gifURL = $("<a>").attr("href", response.url).append(gifURL);
                 var gifImage = $("<img>").attr("src", response.thumb_url);
                 
-                //create for loop for looping through array 
+                // for (var i = 0; i < array.length; i++) {
+                    
+                // }
+
                 //dynamically create img elements with giphs as source, then append to body
                 //loop ends
 
@@ -72,7 +83,6 @@
 
         
     </script>
-    
     
 </body>
 </html>
