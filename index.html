@@ -37,12 +37,10 @@
         <button class='btn btn-outline-warning movie' id='HP'>Harry Potter</button>
         <button class='btn btn-outline-info movie' id='Batman'>The Dark Knight</button>
     </div>
-    <span>
-        <img src=' '>
-    </span>
-    <span>
-        <a href></a>
-    </span>
+
+    <div id="outputArea">
+
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
     </script>
@@ -56,7 +54,6 @@
         //grab 10 giphys according to the button that is pushed
 
         $('.movie').on('click', function() {
-            event.preventDefault();
             console.log($(this).text());
             var text = $(this).text();        
             var queryURL = "https://api.giphy.com/v1/gifs/search?api_key="+apiKey+"&q="+text+"&limit=25&offset=0&rating=G&lang=en";
@@ -65,20 +62,25 @@
                 url: queryURL,
                 method: "GET"
             }).then(function(response) {
+
                 console.log(response.data[0].images.original.url);
 
-                var gifURL = $("<a>").attr("href", response.url).append(gifURL);
-                var gifImage = $("<img>").attr("src", response.thumb_url);
+
+            
                 
-                // for (var i = 0; i < array.length; i++) {
+                for (var i = 0; i < response.data.length; i++) {
+                    var gifURL = $("<a>").attr("href", response.url).append(gifURL);
+                    var gifImage = $("<img>").attr("src", response.data[i].images.original.url);
+                    $("#outputArea").append(gifImage);
                     
-                // }
+                } //for loop ends
+                
 
                 //dynamically create img elements with giphs as source, then append to body
                 //loop ends
 
-            });
-        });
+            }); //ajax fucntion ends
+        }); // movie ends
         
 
         
