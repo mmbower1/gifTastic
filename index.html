@@ -62,41 +62,51 @@
         }).then(function(response) {
             console.log(response);
 
+            //limit gif images to 7 each click
             for (var i = 0; i < (response.data.length > 8 ? 8 : response.data.length); i++) {
+
                 var gifURL = $("<a>").attr("href", response.url).append(gifURL);
+
                 var gifImage = $("<img>").attr("src", response.data[i].images.original.url);
+
                 gifImage.attr("data-gif", response.data[i].images.original.url);
+
                 gifImage.attr("data-still", response.data[i].images.original_still.url);
+
                 gifImage.on('click', function () {
                     if ($(this).attr('src') === $(this).attr('data-gif')) {
+
                         $(this).attr('src', $(this).attr('data-still'))
                     } else {
+
                         $(this).attr('src', $(this).attr('data-gif'))
                     }
                 });
                 $("#outputArea").append(gifImage);
                 
-            }; //for loop ends 
-
+            };  //for loop ends 
         }); //ajax fucntion ends
-    }
+    } //handleClick function ends
 
         $('.movie').on('click', handleClick); // movie click ends
 
         $("#addMovie").on("click", function(event) {
             event.preventDefault();
+            
+            //declares new button
             var newButton = $("<button>");
+
             newButton.html($("#gif-input").val());
+
+            //adds the new button
             newButton.addClass("btn");
+            
+            //appends newButton to container
             $(".container").append(newButton);
 
+            //throws in handleClick function for new buttons
             newButton.on("click", handleClick);
         });
-
-
-        //limit gif images to 7 each click
-
-        //the gif images stop when one is clicked, and starts when clicked again 
         
     </script>    
 </body>
